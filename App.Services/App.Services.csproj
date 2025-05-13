@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\App.Repository\App.Repositories.csproj" />
   </ItemGroup>
 
