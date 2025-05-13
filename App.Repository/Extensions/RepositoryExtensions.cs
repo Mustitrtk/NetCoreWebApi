@@ -28,6 +28,8 @@ namespace App.Repositories.Extensions
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             return services;
         }
     }
