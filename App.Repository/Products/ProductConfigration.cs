@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Repositories
+namespace App.Repositories.Products
 {
     public class ProductConfigration : IEntityTypeConfiguration<Product>
     {
