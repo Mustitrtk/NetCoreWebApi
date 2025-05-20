@@ -75,7 +75,7 @@ namespace App.Services.Products
             await productRepository.AddAsync(product);
             await unitOfWork.SaveChangesAsync();
 
-            return ServiceResult<CreateProductResponse>.Success(new CreateProductResponse(product.Id));
+            return ServiceResult<CreateProductResponse>.SuccessAsCreated(new CreateProductResponse(product.Id),$"api/products/{product.Id}");
         }
 
         //Update
