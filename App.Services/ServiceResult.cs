@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace App.Services
@@ -10,12 +11,15 @@ namespace App.Services
     public class ServiceResult<T>
     {
         public T? Data { get; set; }
-        public List<string>? ErrorMessages { get; set; }
+        public List<string>? Message { get; set; }
 
-        public bool IsSuccess => ErrorMessages == null || ErrorMessages.Count == 0;
+        [JsonIgnore]
+        public bool IsSuccess => Message == null || Message.Count == 0;
 
+        [JsonIgnore]
         public bool IsFail => !IsSuccess;
 
+        [JsonIgnore]
         public HttpStatusCode StatusCode { get; set; }
 
         //Static Factory Method
@@ -27,23 +31,26 @@ namespace App.Services
 
         public static ServiceResult<T> Fail(List<string> errorMessage, HttpStatusCode status = HttpStatusCode.BadRequest) 
         {
-            return new ServiceResult<T>() { ErrorMessages = errorMessage, StatusCode=status };
+            return new ServiceResult<T>() { Message = errorMessage, StatusCode=status };
         }
 
         public static ServiceResult<T> Fail(string errorMessage, HttpStatusCode status = HttpStatusCode.BadRequest)
         {
-            return new ServiceResult<T>() { ErrorMessages = [errorMessage], StatusCode = status };
+            return new ServiceResult<T>() { Message = [errorMessage], StatusCode = status };
         }
     }
 
     public class ServiceResult
     {
-        public List<string>? ErrorMessages { get; set; }
+        public List<string>? Message { get; set; }
 
-        public bool IsSuccess => ErrorMessages == null || ErrorMessages.Count == 0;
+        [JsonIgnore]
+        public bool IsSuccess => Message == null || Message.Count == 0;
 
+        [JsonIgnore]
         public bool IsFail => !IsSuccess;
 
+        [JsonIgnore]
         public HttpStatusCode StatusCode { get; set; }
 
         //Static Factory Method
@@ -55,12 +62,12 @@ namespace App.Services
 
         public static ServiceResult Fail(List<string> errorMessage, HttpStatusCode status = HttpStatusCode.BadRequest)
         {
-            return new ServiceResult() { ErrorMessages = errorMessage, StatusCode = status };
+            return new ServiceResult() { Message = errorMessage, StatusCode = status };
         }
 
         public static ServiceResult Fail(string errorMessage, HttpStatusCode status = HttpStatusCode.BadRequest)
         {
-            return new ServiceResult() { ErrorMessages = [errorMessage], StatusCode = status };
+            return new ServiceResult() { Message = [errorMessage], StatusCode = status };
         }
     }
 }

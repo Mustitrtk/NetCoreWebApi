@@ -79,7 +79,7 @@ namespace App.Services.Products
             productRepository.Update(product);
             await unitOfWork.SaveChangesAsync();
 
-            return ServiceResult.Success();
+            return ServiceResult.Success(HttpStatusCode.NoContent);
         }
 
         //Delete
@@ -94,7 +94,7 @@ namespace App.Services.Products
 
             productRepository.Delete(product);
             await unitOfWork.SaveChangesAsync();
-            return ServiceResult.Success();
+            return ServiceResult.Success(HttpStatusCode.NoContent);
         }
     }
 }
