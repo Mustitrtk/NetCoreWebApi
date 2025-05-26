@@ -1,4 +1,6 @@
 ﻿using App.Repositories.Products;
+using App.Services.Products.Create;
+using App.Services.Products.Update;
 using System;
 using System.Collections.Generic;
 using System.Linq;

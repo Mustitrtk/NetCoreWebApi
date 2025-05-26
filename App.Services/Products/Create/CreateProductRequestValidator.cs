@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Services.Products
+namespace App.Services.Products.Create
 {
     public class CreateProductRequestValidator:AbstractValidator<CreateProductRequest>
     {

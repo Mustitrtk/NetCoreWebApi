@@ -8,6 +8,7 @@
 
   <ItemGroup>
 	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <PackageReference Include="AutoMapper" Version="14.0.0" />
 	  <PackageReference Include="FluentValidation" Version="12.0.0" />
 	  <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <ProjectReference Include="..\App.Repository\App.Repositories.csproj" />
