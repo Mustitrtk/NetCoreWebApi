@@ -1,5 +1,7 @@
 ﻿using App.Repositories;
 using App.Repositories.Products;
+using Azure.Core;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace App.Services.Products
 {
-    public class ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork) : IProductService
+    public class ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, IValidator<CreateProductRequest> createProdcutRequestValidator) : IProductService
     {
         //Get Top
         public async Task<ServiceResult<List<ProductDto>>> GetTopPriceProductAsync(int count)
@@ -66,6 +68,27 @@ namespace App.Services.Products
         //Create
         public async Task<ServiceResult<CreateProductResponse>> CreateAsync(CreateProductRequest createProduct)
         {
+
+            //async manuel service business check
+            //var anyProduct = await productRepository.Where(x => x.Name == createProduct.Name).AnyAsync();
+
+            //if (anyProduct)
+            //{
+            //    return ServiceResult<CreateProductResponse>.Fail("ürün ismi veritabanında bulunmaktadır.",
+            //        HttpStatusCode.NotFound);
+            //}
+
+            #region async manuel fluent validation business check
+
+            var validationResult = await createProdcutRequestValidator.ValidateAsync(createProduct);
+            if (!validationResult.IsValid)
+            {
+                return ServiceResult<CreateProductResponse>.Fail(
+                    validationResult.Errors.Select(x => x.ErrorMessage).ToList());
+            }
+
+            #endregion
+
             var product = new Product()
             {
                 Name = createProduct.Name,
