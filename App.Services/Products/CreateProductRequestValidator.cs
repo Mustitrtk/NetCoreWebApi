@@ -12,7 +12,7 @@ namespace App.Services.Products
         public CreateProductRequestValidator() 
         {
             RuleFor(x => x.Name)
-                .NotNull().WithMessage("Name is required!")
+                //.NotNull().WithMessage("Name is required!")
                 .NotEmpty().WithMessage("Name is required!")
                 .Length(3,10).WithMessage("Name length must be between 3 and 10!");
 
