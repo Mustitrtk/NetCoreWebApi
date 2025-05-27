@@ -25,6 +25,8 @@ builder.Services.AddRepository(builder.Configuration).AddServices(builder.Config
 
 var app = builder.Build();
 
+app.UseExceptionHandler(x => { });
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

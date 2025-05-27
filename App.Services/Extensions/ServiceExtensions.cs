@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using App.Services.Products;
 using FluentValidation;
 using System.Reflection;
+using App.Services.ExceptionHandlers;
 
 namespace App.Services.Extensions
 {
@@ -22,6 +23,9 @@ namespace App.Services.Extensions
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddExceptionHandler<CriticalExceptionHandler>();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
             return services;
         }
     }
