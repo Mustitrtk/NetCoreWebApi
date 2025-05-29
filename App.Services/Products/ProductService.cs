@@ -2,6 +2,7 @@
 using App.Repositories.Products;
 using App.Services.Products.Create;
 using App.Services.Products.Update;
+using App.Services.Products.UpdateStock;
 using AutoMapper;
 using Azure.Core;
 using FluentValidation;
@@ -82,22 +83,22 @@ namespace App.Services.Products
         {
 
             //async manuel service business check
-            //var anyProduct = await productRepository.Where(x => x.Name == createProduct.Name).AnyAsync();
+            var isProductNameExist = await productRepository.Where(x => x.Name == createProduct.Name).AnyAsync();
 
-            //if (anyProduct)
-            //{
-            //    return ServiceResult<CreateProductResponse>.Fail("ürün ismi veritabanında bulunmaktadır.",
-            //        HttpStatusCode.NotFound);
-            //}
+            if (isProductNameExist)
+            {
+                return ServiceResult<CreateProductResponse>.Fail("ürün ismi veritabanında bulunmaktadır.",
+                    HttpStatusCode.NotFound);
+            }
 
             #region async manuel fluent validation business check
 
-            var validationResult = await createProdcutRequestValidator.ValidateAsync(createProduct);
-            if (!validationResult.IsValid)
-            {
-                return ServiceResult<CreateProductResponse>.Fail(
-                    validationResult.Errors.Select(x => x.ErrorMessage).ToList());
-            }
+            //var validationResult = await createProdcutRequestValidator.ValidateAsync(createProduct);
+            //if (!validationResult.IsValid)
+            //{
+            //    return ServiceResult<CreateProductResponse>.Fail(
+            //        validationResult.Errors.Select(x => x.ErrorMessage).ToList());
+            //}
 
             #endregion
 
@@ -121,6 +122,14 @@ namespace App.Services.Products
             if(product is null)
             {
                 return ServiceResult.Fail("Data Not Found !",HttpStatusCode.NotFound);
+            }
+
+            var isProductNameExist = await productRepository.Where(x => x.Name == productRequest.Name && x.Id != product.Id).AnyAsync();
+
+            if (isProductNameExist)
+            {
+                return ServiceResult.Fail("ürün ismi veritabanında bulunmaktadır.",
+                    HttpStatusCode.NotFound);
             }
 
             product.Name = productRequest.Name;
