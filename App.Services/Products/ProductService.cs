@@ -102,12 +102,7 @@ namespace App.Services.Products
 
             #endregion
 
-            var product = new Product()
-            {
-                Name = createProduct.Name,
-                Price = createProduct.Price,
-                Stock = createProduct.Stock,
-            };
+            var product = mapper.Map<Product>(createProduct);
             await productRepository.AddAsync(product);
             await unitOfWork.SaveChangesAsync();
 
@@ -132,9 +127,11 @@ namespace App.Services.Products
                     HttpStatusCode.NotFound);
             }
 
-            product.Name = productRequest.Name;
-            product.Price = productRequest.Price;
-            product.Stock = productRequest.Stock;
+            //product.Name = productRequest.Name;
+            //product.Price = productRequest.Price;
+            //product.Stock = productRequest.Stock;
+
+            product = mapper.Map(productRequest,product);
             
             productRepository.Update(product);
             await unitOfWork.SaveChangesAsync();
