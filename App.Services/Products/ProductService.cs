@@ -87,7 +87,7 @@ namespace App.Services.Products
 
             if (isProductNameExist)
             {
-                return ServiceResult<CreateProductResponse>.Fail("ürün ismi veritabanında bulunmaktadır.",
+                return ServiceResult<CreateProductResponse>.Fail("Product Name Not Found !",
                     HttpStatusCode.NotFound);
             }
 
@@ -123,7 +123,7 @@ namespace App.Services.Products
 
             if (isProductNameExist)
             {
-                return ServiceResult.Fail("ürün ismi veritabanında bulunmaktadır.",
+                return ServiceResult.Fail("Product Name Not Found !",
                     HttpStatusCode.NotFound);
             }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Services.Categories
+namespace App.Services.Categories.Update
 {
-    public record CategoryDto(int Id, string Name); 
+    public record UpdateCategoryRequest(string Name);
 }

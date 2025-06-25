@@ -14,7 +14,7 @@ namespace App.Repositories.Categories
             return context.Categories.Include(p=>p.Products).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public IQueryable<Category?> GetCategoryWithProductAsync()
+        public IQueryable<Category?> GetCategoryWithProduct()
         {
             return context.Categories.Include(p => p.Products).AsQueryable();
         }
