@@ -23,6 +23,10 @@ namespace App.Services.Products.Create
             RuleFor(x => x.Price)
                 .GreaterThan(0).WithMessage("Price must be greater than 0!");
 
+            RuleFor(x => x.CategoryId)
+                .NotEmpty().WithMessage("Category is required!")
+                .GreaterThan(0).WithMessage("Category must be greater than 0!");
+
             RuleFor(x => x.Stock)
                 .InclusiveBetween(1,100).WithMessage("Stock must be between 1 and 100!");
         }

@@ -15,6 +15,7 @@ namespace App.Repositories
         public DbSet<Product> Products { get; set; } = default!;
         public DbSet<Category> Categories { get; set; } = default!;
 
+        //Detect configration items auto
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly()); //Bu proje içerisindeki tüm configure ayarları algılar
