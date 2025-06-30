@@ -12,6 +12,7 @@ using FluentValidation;
 using System.Reflection;
 using App.Services.ExceptionHandlers;
 using App.Services.Categories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.Services.Extensions
 {
@@ -23,9 +24,12 @@ namespace App.Services.Extensions
 
             services.AddScoped<ICategoryService, CategoryService>();
 
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()); //Fluent Validation
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly()); //Mapping
+
+
+            services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true); //Manuel Hata Mesajı Kapama
 
             services.AddExceptionHandler<CriticalExceptionHandler>();
             services.AddExceptionHandler<GlobalExceptionHandler>();

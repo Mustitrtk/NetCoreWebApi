@@ -15,11 +15,10 @@ builder.Services.AddControllers(options =>
         options.Filters.Add<FluentValidationFiltre>();
         options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
     });
-builder.Services.Configure<ApiBehaviorOptions>(options =>options.SuppressModelStateInvalidFilter=true); //Manuel Hata Mesajý Kapama
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddRepository(builder.Configuration).AddServices(builder.Configuration);
+builder.Services.AddRepository(builder.Configuration).AddServices(builder.Configuration); //Service and Repoistory extensions
 
 
 
